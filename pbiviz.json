@@ -1,0 +1,23 @@
+{
+    "visual": {
+        "name": "wBRecoveryStatus",
+        "displayName": "WB Recovery Status",
+        "guid": "PBI_CV_7844889B_1C25_49B0_A895_4FF3BB38DCF1",
+        "visualClassName": "Visual",
+        "version": "1.0.0",
+        "description": "",
+        "supportUrl": "",
+        "gitHubUrl": ""
+    },
+    "apiVersion": "1.1.0",
+    "author": {
+        "name": "",
+        "email": ""
+    },
+    "assets": {
+        "icon": "assets/icon.png"
+    },
+    "externalJS": [],
+    "style": "style/visual.less",
+    "capabilities": "capabilities.json"
+}
