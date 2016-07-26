@@ -40,7 +40,7 @@ are summarized below:
 4. setup powerbi cloud for development by
 [enabling developer mode in settings](https://github.com/Microsoft/PowerBI-visuals-docs/blob/master/tools/DebugVisualSetup.md)
 5. serve the visualization
-   - `npm start`
+   - `npm run start`
 6. [add the development visualization to your report](https://github.com/Microsoft/PowerBI-visuals-docs/blob/master/tools/DebugVisualSetup.md#step-3)
    and enable live reload to see your source changes immediately reflected in the application
 
