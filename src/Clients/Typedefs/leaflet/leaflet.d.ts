@@ -1,25 +1,17 @@
-
-
-
-<!DOCTYPE html>
-<html lang="en" class="">
-  <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="Content-Language" content="en">
-    <meta name="viewport" content="width=1020">
-    
-    // Type definitions for Leaflet.js 0.7.3
+// Type definitions for Leaflet.js 1.0.0
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Vladimir Zotov <https://github.com/rgripper>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module L {
+/// <reference path='../geojson/geojson.d.ts' />
+
+declare namespace L {
     type LatLngExpression = LatLng | number[] | ({ lat: number; lng: number })
     type LatLngBoundsExpression = LatLngBounds | LatLngExpression[];
+    type PositionString = 'topleft' | 'topright' | 'bottomleft' | 'bottomright';
 }
 
-declare module L {
+declare namespace L {
 
     export interface AttributionOptions {
 
@@ -27,7 +19,7 @@ declare module L {
           * The position of the control (one of the map corners). See control positions.
           * Default value: 'bottomright'.
           */
-        position?: string;
+        position?: PositionString;
 
         /**
           * The HTML text shown before the attributions. Pass false to disable.
@@ -38,7 +30,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
         * Creates a Bounds object from two coordinates (usually top-left and bottom-right
@@ -52,7 +44,7 @@ declare module L {
     export function bounds(points: Point[]): Bounds;
 
 
-    export interface BoundsStatic extends ClassStatic {
+    export interface BoundsStatic {
         /**
           * Creates a Bounds object from two coordinates (usually top-left and bottom-right
           * corners).
@@ -114,9 +106,9 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
-    module Browser {
+    namespace Browser {
 
         /**
           * true for all Internet Explorer versions.
@@ -189,7 +181,7 @@ declare module L {
 }
 
 
-declare module L {
+declare namespace L {
 
     /**
       * Instantiates a circle object given a geographical point, a radius in meters
@@ -230,12 +222,12 @@ declare module L {
         /**
           * Returns a GeoJSON representation of the circle (GeoJSON Point Feature).
           */
-        toGeoJSON(): any;
+        toGeoJSON(): GeoJSON.Feature<GeoJSON.Point>;
 
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
       * Instantiates a circle marker given a geographical point and optionally
@@ -265,15 +257,10 @@ declare module L {
           * Sets the radius of a circle marker. Units are in pixels.
           */
         setRadius(radius: number): CircleMarker;
-
-        /**
-          * Returns a GeoJSON representation of the circle marker (GeoJSON Point Feature).
-          */
-        toGeoJSON(): any;
     }
 }
 
-declare module L {
+declare namespace L {
     export interface ClassExtendOptions {
         /**
           * Your class's constructor function, meaning that it gets called when you do 'new MyClass(...)'.
@@ -326,7 +313,7 @@ declare module L {
       * L.Class powers the OOP facilities of Leaflet and is used to create
       * almost all of the Leaflet classes documented.
       */
-    module Class {
+    namespace Class {
         /**
           * You use L.Class.extend to define new classes, but you can use the
           * same method on any class to inherit from it.
@@ -336,7 +323,7 @@ declare module L {
 
 }
 
-declare module L {
+declare namespace L {
     export interface ControlStatic extends ClassStatic {
         /**
           * Creates a control with the given options.
@@ -354,12 +341,12 @@ declare module L {
         /**
           * Sets the position of the control. See control positions.
           */
-        setPosition(position: string): Control;
+        setPosition(position: PositionString): Control;
 
         /**
           * Returns the current position of the control.
           */
-        getPosition(): string;
+        getPosition(): PositionString;
 
         /**
           * Adds the control to the map.
@@ -411,7 +398,7 @@ declare module L {
               *
               * Default value: 'topright'.
               */
-            position?: string; // 'topleft' | 'topright' | 'bottomleft' | 'bottomright'
+            position?: PositionString;
 
             /**
              * The text set on the zoom in button.
@@ -524,10 +511,10 @@ declare module L {
         /**
           * Creates a control with the given options.
           */
-        function (options?: ControlOptions): Control;
+        (options?: ControlOptions): Control;
     }
 
-    namespace control {
+    export namespace control {
 
         /**
           * Creates a zoom control.
@@ -561,7 +548,7 @@ declare namespace L {
           * positions.
           * Default value: 'topright'.
           */
-        position?: string;
+        position?: PositionString;
 
     }
 }
@@ -624,7 +611,7 @@ declare namespace L {
         /**
           * Size of the icon in pixels. Can be also set through CSS.
           */
-        iconSize?: Point;
+        iconSize?: Point|[number, number];
 
         /**
           * The coordinates of the "tip" of the icon (relative to its top left corner).
@@ -632,7 +619,7 @@ declare namespace L {
           * location. Centered by default if size is specified, also can be set in CSS
           * with negative margins.
           */
-        iconAnchor?: Point;
+        iconAnchor?: Point|[number, number];
 
         /**
           * A custom class name to assign to the icon.
@@ -647,6 +634,12 @@ declare namespace L {
           * Default value: ''.
           */
         html?: string;
+
+        /**
+          * The coordinates of the point from which popups will "open", relative to the
+          * icon anchor.
+          */
+        popupAnchor?: Point|[number, number];
 
     }
 }
@@ -816,13 +809,6 @@ declare namespace L {
 }
 
 declare namespace L {
-
-    /**
-      * Creates a Draggable object for moving the given element when you start dragging
-      * the dragHandle element (equals the element itself by default).
-      */
-    function draggable(element: HTMLElement, dragHandle?: HTMLElement): Draggable;
-
     export interface DraggableStatic extends ClassStatic {
         /**
           * Creates a Draggable object for moving the given element when you start dragging
@@ -1099,7 +1085,7 @@ declare namespace L {
         /**
           * Size of the icon image in pixels.
           */
-        iconSize?: Point;
+        iconSize?: Point|[number, number];
 
         /**
           * The coordinates of the "tip" of the icon (relative to its top left corner).
@@ -1107,7 +1093,7 @@ declare namespace L {
           * location. Centered by default if size is specified, also can be set in CSS
           * with negative margins.
           */
-        iconAnchor?: Point;
+        iconAnchor?: Point|[number, number];
 
         /**
           * The URL to the icon shadow image. If not specified, no shadow image will be
@@ -1124,19 +1110,19 @@ declare namespace L {
         /**
           * Size of the shadow image in pixels.
           */
-        shadowSize?: Point;
+        shadowSize?: Point|[number, number];
 
         /**
           * The coordinates of the "tip" of the shadow (relative to its top left corner)
           * (the same as iconAnchor if not specified).
           */
-        shadowAnchor?: Point;
+        shadowAnchor?: Point|[number, number];
 
         /**
           * The coordinates of the point from which popups will "open", relative to the
           * icon anchor.
           */
-        popupAnchor?: Point;
+        popupAnchor?: Point|[number, number];
 
         /**
           * A custom class name to assign to both icon and shadow images. Empty by default.
@@ -1464,7 +1450,7 @@ declare namespace L {
       */
     function latLng(coords: LatLngExpression): LatLng;
 
-    export interface LatLngStatic extends ClassStatic {
+    export interface LatLngStatic {
         /**
           * Creates an object representing a geographical point with the given latitude
           * and longitude.
@@ -1522,7 +1508,7 @@ declare namespace L {
           * Returns a new LatLng object with the longitude wrapped around left and right
           * boundaries (-180 to 180 by default).
           */
-        wrap(left: number, right: number): LatLng;
+        wrap(left?: number, right?: number): LatLng;
 
         /**
           * Latitude in degrees.
@@ -1550,7 +1536,7 @@ declare namespace L {
       */
     function latLngBounds(latlngs: LatLngBoundsExpression): LatLngBounds;
 
-    export interface LatLngBoundsStatic extends ClassStatic {
+    export interface LatLngBoundsStatic {
         /**
           * Creates a LatLngBounds object by defining south-west and north-east corners
           * of the rectangle.
@@ -1596,25 +1582,25 @@ declare namespace L {
           */
         getSouthEast(): LatLng;
 
-      	/**
+        /**
           * Returns the west longitude in degrees of the bounds.
           */
-	getWest(): number;
+  getWest(): number;
 
         /**
           * Returns the east longitude in degrees of the bounds.
           */
-	getEast(): number;
+  getEast(): number;
 
         /**
           * Returns the north latitude in degrees of the bounds.
           */
-	getNorth(): number;
+  getNorth(): number;
 
         /**
           * Returns the south latitude in degrees of the bounds.
           */
-	getSouth(): number;
+  getSouth(): number;
 
         /**
           * Returns the center point of the bounds.
@@ -1727,8 +1713,9 @@ declare namespace L {
 
         /**
           * Returns a GeoJSON representation of the layer group (GeoJSON FeatureCollection).
+          * Note: Descendent classes MultiPolygon & MultiPolyLine return `Feature`s, not `FeatureCollection`s
           */
-        toGeoJSON(): any;
+        toGeoJSON(): GeoJSON.FeatureCollection<GeoJSON.GeometryObject>|GeoJSON.Feature<GeoJSON.MultiLineString|GeoJSON.MultiPolygon>;
 
         ////////////
         ////////////
@@ -1757,7 +1744,7 @@ declare namespace L {
           *
           * Default value: 'topright'.
           */
-        position?: string;
+        position?: PositionString;
 
         /**
           * If true, the control will be collapsed into an icon and expanded on mouse hover
@@ -1844,6 +1831,22 @@ declare namespace L {
           * The layer that was added or removed.
           */
         layer: ILayer;
+    }
+}
+
+declare namespace L {
+
+    export interface LeafletLayersControlEvent extends LeafletEvent {
+
+        /**
+          * The layer that was added or removed.
+          */
+        layer: ILayer;
+
+        /**
+          * The name of the layer that was added or removed.
+          */
+        name: string;
     }
 }
 
@@ -2002,11 +2005,11 @@ declare namespace L {
         export function closestPointOnSegment(p: Point, p1: Point, p2: Point): Point;
 
         /**
-          * Clips the segment a to b by rectangular bounds (modifying the segment points
-          * directly!). Used by Leaflet to only show polyline points that are on the screen
-          * or near, increasing performance.
+          * Clips the segment a to b by rectangular bounds. Used by Leaflet to only show
+          * polyline points that are on the screen or near, increasing performance. Returns
+          * either false or a length-2 array of clipped points.
           */
-        export function clipSegment(a: Point, b: Point, bounds: Bounds): void;
+        export function clipSegment(a: Point, b: Point, bounds: Bounds): Point[] | boolean;
 
     }
 }
@@ -2436,6 +2439,12 @@ declare namespace L {
           */
         options: Map.MapOptions;
 
+        /**
+          * Iterates over the layers of the map, optionally specifying context
+      * of the iterator function.
+          */
+        eachLayer(fn: (layer: ILayer) => void, context?: any): Map;
+
         ////////////////
         ////////////////
         addEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Map;
@@ -2730,6 +2739,22 @@ declare namespace L.Map {
          * If true, it will delay moveend event so that it doesn't happen many times in a row.
          */
         debounceMoveend?: boolean;
+
+        /**
+         * Duration of animated panning, in seconds.
+         */
+        duration?: number;
+
+        /**
+         * The curvature factor of panning animation easing (third parameter of the Cubic Bezier curve).
+         * 1.0 means linear animation, the less the more bowed the curve.
+         */
+        easeLinearity?: number;
+
+        /**
+         * If true, panning won't fire movestart event on start (used internally for panning inertia).
+         */
+        noMoveStart?: boolean;
     }
 
     export interface FitBoundsOptions extends ZoomPanOptions {
@@ -2917,7 +2942,7 @@ declare namespace L {
         /**
           * Returns a GeoJSON representation of the marker (GeoJSON Point Feature).
           */
-        toGeoJSON(): any;
+        toGeoJSON(): GeoJSON.Feature<GeoJSON.Point>;
 
         /**
           * Marker dragging handler (by both mouse and touch).
@@ -3047,7 +3072,7 @@ declare namespace L {
       */
     function multiPolygon(latlngs: LatLng[][], options?: PolylineOptions): MultiPolygon;
 
-    export interface MultiPolylgonStatic extends ClassStatic {
+    export interface MultiPolygonStatic extends ClassStatic {
         /**
           * Instantiates a multi-polyline object given an array of latlngs arrays (one
           * for each individual polygon) and optionally an options object (the same
@@ -3055,7 +3080,7 @@ declare namespace L {
           */
         new(latlngs: LatLng[][], options?: PolylineOptions): MultiPolygon;
     }
-    export var MultiPolylgon: MultiPolylgonStatic;
+    export var MultiPolygon: MultiPolygonStatic;
 
     export interface MultiPolygon extends FeatureGroup<Polygon> {
         /**
@@ -3077,7 +3102,7 @@ declare namespace L {
         /**
           * Returns a GeoJSON representation of the multipolygon (GeoJSON MultiPolygon Feature).
           */
-        toGeoJSON(): any;
+        toGeoJSON(): GeoJSON.Feature<GeoJSON.MultiPolygon>;
     }
 }
 
@@ -3118,7 +3143,7 @@ declare namespace L {
         /**
           * Returns a GeoJSON representation of the multipolyline (GeoJSON MultiLineString Feature).
           */
-        toGeoJSON(): any;
+        toGeoJSON(): GeoJSON.Feature<GeoJSON.MultiLineString>;
     }
 }
 
@@ -3256,7 +3281,7 @@ declare namespace L {
         off(eventMap?: any, context?: any): Path;
     }
 
-    namespace Path {
+    export namespace Path {
         /**
           * True if SVG is used for vector rendering (true for most modern browsers).
           */
@@ -3379,6 +3404,11 @@ declare namespace L {
           */
         className?: string;
 
+  /**
+   * Sets the radius of a circle marker.
+   */
+  radius?: number;
+
     }
 }
 
@@ -3390,7 +3420,7 @@ declare namespace L {
       */
     function point(x: number, y: number, round?: boolean): Point;
 
-    export interface PointStatic extends ClassStatic {
+    export interface PointStatic {
         /**
           * Creates a Point object with the given x and y coordinates. If optional round
           * is set to true, rounds the x and y values.
@@ -3534,7 +3564,7 @@ declare namespace L {
         /**
           * Returns a GeoJSON representation of the polyline (GeoJSON LineString Feature).
           */
-        toGeoJSON(): any;
+        toGeoJSON(): GeoJSON.Feature<GeoJSON.LineString>;
     }
 }
 
@@ -3849,7 +3879,7 @@ declare namespace L {
           * The position of the control (one of the map corners). See control positions.
           * Default value: 'bottomleft'.
           */
-        position?: string;
+        position?: PositionString;
 
         /**
           * Maximum width of the control in pixels. The width is set dynamically to show
@@ -4067,7 +4097,7 @@ declare namespace L {
           *
           * Default value: 'abc'.
           */
-        subdomains?: string[];
+        subdomains?: string|string[];
 
         /**
           * URL to the tile image to show in place of the tile that failed to load.
@@ -4171,11 +4201,16 @@ declare namespace L {
           * When this option is set, the TileLayer only loads tiles that are in the given geographical bounds.
           */
         bounds?: LatLngBounds;
+
+        /**
+          * Custom keys may be specified in TileLayerOptions so they can be used in a provided URL template.
+          */
+        [additionalKeys: string]: any;
     }
 }
 
 declare namespace L {
-    export interface TransformationStatic extends ClassStatic {
+    export interface TransformationStatic {
         /**
           * Creates a transformation object with the given coefficients.
           */
@@ -4341,7 +4376,7 @@ declare var L_NO_TOUCH: boolean;
 declare var L_DISABLE_3D: boolean;
 
 declare module "leaflet" {
-	export = L;
+  export = L;
 }
 
 // vim: et ts=4 sw=4
