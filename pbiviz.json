@@ -3,7 +3,7 @@
         "name": "wBRecoveryStatus",
         "displayName": "WB Recovery Status",
         "guid": "PBI_CV_7844889B_1C25_49B0_A895_4FF3BB38DCF1",
-        "visualClassName": "Visual",
+        "visualClassName": "LeafletMap",
         "version": "1.0.0",
         "description": "",
         "supportUrl": "",
