@@ -407,15 +407,17 @@ module powerbi.extensibility.visual {
         }
 
         constructor(options: VisualConstructorOptions) {
-            //one time setup code goes here (called once)
-            d3.select(options.element.get(0)).append("div")
+            console.log('adding div to', options.element);
+            d3.select(options.element).append("div")
                 .attr('id', 'map');
 
             //works with a jQuery select by not D3 select?
             //CSS required in both init() and update() for tiles to load properly
+            // TODO: viewport is not a property on VisualConstructorOptions
+            // it can be added, but that is a hack on the powerbi-visuals api
             $("#map")
-                .css("height", options.viewport.height)
-                .css("width", options.viewport.width);
+                .css("height", 500)
+                .css("width", 700);
 
         }
 
