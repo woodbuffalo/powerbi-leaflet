@@ -48,9 +48,8 @@ TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF TH
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-/* Please make sure that this path is correct */
 
-module powerbi.visuals {
+module powerbi.extensibility.visual {
 
     //TEMPORARY
     //Add Leaflet JS and CSS from CDN for now. Add to solution in the long term.
@@ -575,12 +574,4 @@ module powerbi.visuals {
             $("#map").remove;
         }
     }
-}
-
-module powerbi.visuals.plugins {
-    export var _leafletMap: IVisualPlugin = {
-        name: '_leafletMap',
-        capabilities: LeafletMap.capabilities,
-        create: () => new LeafletMap()
-    };
 }
