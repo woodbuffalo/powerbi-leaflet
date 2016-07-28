@@ -369,7 +369,7 @@ module powerbi.visuals {
                         dataPoints.push({
                             geoType: "POINT",
                             geoData: pointData,
-                            description: "Test",
+                            //description: "Test",
                             dataValue: data[i][1],
                             lng: pointData.lng,
                             lat: pointData.lat
@@ -381,7 +381,7 @@ module powerbi.visuals {
                         dataPoints.push({
                             geoType: "LINESTRING",
                             geoData: lineData,
-                            description: "",
+                            //description: "",
                             dataValue: data[i][1],
                             lng: 0,
                             lat: 0
@@ -393,7 +393,7 @@ module powerbi.visuals {
                         dataPoints.push({
                             geoType: "POLYGON",
                             geoData: polygonData,
-                            description: "",
+                            //description: "",
                             dataValue: data[i][1],
                             lng: 0,
                             lat: 0
