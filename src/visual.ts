@@ -406,7 +406,8 @@ module powerbi.extensibility.visual {
             return dataPoints;
         }
 
-        public init(options: VisualInitOptions): void {
+        constructor(options: VisualConstructorOptions) {
+            //one time setup code goes here (called once)
             d3.select(options.element.get(0)).append("div")
                 .attr('id', 'map');
 
@@ -415,13 +416,14 @@ module powerbi.extensibility.visual {
             $("#map")
                 .css("height", options.viewport.height)
                 .css("width", options.viewport.width);
+
         }
 
         public update(options: VisualUpdateOptions) {
             if (!options.dataViews && !options.dataViews[0]) return;
             this.dataView = options.dataViews[0];
             var cartoData = LeafletMap.converter(this.dataView);
-            
+
             //works with a jQuery select by not D3 select?
             //CSS required in both init() and update() for tiles to load properly
             $("#map")
