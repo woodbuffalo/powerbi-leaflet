@@ -265,7 +265,8 @@ module powerbi.extensibility.visual {
             }],
             objects: {
                 general: {
-                    displayName: data.createDisplayNameGetter('Visual_General'),
+                    displayName: 'test',
+                    //displayName: data.createDisplayNameGetter('Visual_General'),
                     properties: {
                         formatString: {
                             type: { formatting: { formatString: true } },
