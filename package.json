@@ -5,14 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "pbi": "./node_modules/powerbi-visuals-tools/bin/pbiviz.js",
-    "pbicerti": "./node_modules/powerbi-visuals-tools/bin/pbiviz.js --install-cert",
-    "package": "./node_modules/powerbi-visuals-tools/bin/pbiviz.js package",
-    "start": "./node_modules/powerbi-visuals-tools/bin/pbiviz.js start"
+    "pbi": "pbiviz",
+    "pbicerti": "pbiviz --install-cert",
+    "package": "pbiviz package",
+    "start": "pbiviz start"
   },
   "author": "Jotham Apaloo",
   "license": "ISC",
   "dependencies": {
-    "powerbi-visuals-tools": "^1.0.0-beta.5"
+    "powerbi-visuals-tools": "^1.1.0"
   }
 }
