@@ -44,6 +44,10 @@ are summarized below:
 6. [add the development visualization to your report](https://github.com/Microsoft/PowerBI-visuals-docs/blob/master/tools/DebugVisualSetup.md#step-3)
    and enable live reload to see your source changes immediately reflected in the application
 
+### TypeScript
+
+Visualizations are written in TypeScript, if you're not familiar there's a good primer [here](https://www.sitepoint.com/introduction-to-typescript/).
+
 ### PowerBI Visualization Structure
 
 It is useful to review

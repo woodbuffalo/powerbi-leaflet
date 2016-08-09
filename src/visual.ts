@@ -8,7 +8,7 @@ module powerbi.extensibility.visual {
         private dataView: DataView;
         private map: L.Map;
         private basemap: L.TileLayer;
-        
+
         constructor(options: VisualConstructorOptions) {
             console.log('constructor called');
             var mapDiv = $('<div></div>')
@@ -16,7 +16,7 @@ module powerbi.extensibility.visual {
                 .css('height', 500)
                 .css('width', 700);
             $(options.element).append(mapDiv);
-                
+
             this.basemap = L.tileLayer('https://d5nra9v0s4zer.cloudfront.net/base-tiles-2016/{z}/{y}/{x}');
 
             this.map = L.map('map', {

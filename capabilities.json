@@ -1,37 +1,68 @@
 {
     "dataRoles": [
         {
-            "displayName": "Category Data",
             "name": "category",
-            "kind": 0
+            "kind": 0,
+            "displayName": "Style Field"
         },
         {
-            "displayName": "Measure Data",
-            "name": "measure",
-            "kind": 1
+            "name": "latitude",
+            "kind": 0,
+            "displayName": "Latitude"
+        },
+        {
+            "name": "longitude",
+            "kind": 0,
+            "displayName": "Longitude"
+        },
+        {
+            "name": "tooltip",
+            "kind": 0,
+            "displayName": "Tooltip Fields"
         }
     ],
-    "dataViewMappings": [
-        {
-            "categorical": {
-                "categories": {
-                    "for": {
-                        "in": "category"
+    "dataViewMappings": [{
+        "table": {
+            "rows": {
+                "select": [
+                    {
+                        "for": {"in": "category"}
                     },
-                    "dataReductionAlgorithm": {
-                        "top": {}
+                    {
+                        "for": {"in": "latitude"}
+                    },
+                    {
+                        "for": {"in": "longitude"}
                     }
+                ]
+            }
+        }
+    }],
+    "objects": {
+        "general": {
+            "displayName": "Map Options",
+            "properties": {
+                "pointFill": {
+                    "type": { "fill": { "solid": { "color": true } } },
+                    "displayName": "Point color"
                 },
-                "values": {
-                    "select": [
-                        {
-                            "bind": {
-                                "to": "measure"
-                            }
-                        }
-                    ]
+                "pointRadius": {
+                    "type": { "numeric": true },
+                    "displayName": "Point radius"
+                },
+                "lineFill": {
+                    "type": { "fill": { "solid": { "color": true } } },
+                    "displayName": "Line color"
+                },
+                "lineWidth": {
+                    "type": { "numeric": true },
+                    "displayName": "Line width"
+                },
+                "polygonFill": {
+                    "type": { "fill": { "solid": { "color": true } } },
+                    "displayName": "Polygon color"
                 }
             }
         }
-    ]
+    }
 }
