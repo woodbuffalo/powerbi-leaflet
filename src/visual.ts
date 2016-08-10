@@ -32,15 +32,16 @@ module powerbi.extensibility.visual {
 
         public static converter(dataView: DataView) {
             const {columns, rows} = dataView.table;
-            const c20 = d3.scale.category10();
+            const c10 = d3.scale.category10();
 
-            const datas = rows.map(function (row) {
+            const datas = rows.map(function (row, idx) {
                 let data = row.reduce(function (d, v, i) {
-                    d[columns[i].displayName] = v;
+                    const role = Object.keys(columns[i].roles)[0]
+                    d[role] = v;
                     return d;
                 }, {});
-
-                data.color = c20(data.category);
+                
+                data.color = c10(data.category);
 
                 return data;
             });
@@ -57,7 +58,15 @@ module powerbi.extensibility.visual {
 
             const markers = data.map(function (d) {
                 const latlng = L.latLng([d.latitude, d.longitude]);
-                return L.circleMarker(latlng, {color: d.color, fillOpacity: 1});
+                let marker = L.circleMarker(latlng, {color: d.color, fillOpacity: 1});
+
+                const category = d.category ? d.category : 'NA';
+                marker.bindPopup(d.tooltip + ' : ' + category);
+                marker.on('mouseover', function (evt) {
+                    marker.openPopup();
+                });
+                
+                return marker;
             });
 
             const markerLayer = L.layerGroup(markers);
