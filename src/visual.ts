@@ -8,6 +8,7 @@ module powerbi.extensibility.visual {
         private dataView: DataView;
         private map: L.Map;
         private basemap: L.TileLayer;
+        private markerLayer: L.LayerGroup<L.CircleMarker>;
 
         constructor(options: VisualConstructorOptions) {
             console.log('constructor called');
@@ -52,7 +53,16 @@ module powerbi.extensibility.visual {
         public update(options: VisualUpdateOptions) {
             console.log('update called');
             
+            $('#map')
+                .css('height', options.viewport.height)
+                .css('width', options.viewport.width);
+
+            this.map.invalidateSize(true);
+
             if (!options.dataViews && !options.dataViews[0]) return;
+        
+            if (this.markerLayer) this.map.removeLayer(this.markerLayer);
+
             this.dataView = options.dataViews[0];
             const data = LeafletMap.converter(this.dataView);
 
@@ -69,15 +79,8 @@ module powerbi.extensibility.visual {
                 return marker;
             });
 
-            const markerLayer = L.layerGroup(markers);
-
-            this.map.addLayer(markerLayer);
-
-            $('#map')
-                .css('height', options.viewport.height)
-                .css('width', options.viewport.width);
-
-            this.map.invalidateSize(true);
+            this.markerLayer = L.layerGroup(markers);
+            this.map.addLayer(this.markerLayer);
         }
 
         public destroy() {
