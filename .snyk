@@ -1,0 +1,11 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.8.0
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:debug:20170905':
+    - powerbi-visuals-tools > powerbi-visuals-package-validator > gulp-eslint > bufferstreams > debug:
+        patched: '2017-12-04T05:50:53.114Z'
+  'npm:ms:20170412':
+    - powerbi-visuals-tools > powerbi-visuals-package-validator > gulp-eslint > bufferstreams > debug > ms:
+        patched: '2017-12-04T05:50:53.114Z'

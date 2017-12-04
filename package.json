@@ -8,11 +8,15 @@
     "pbi": "pbiviz",
     "pbicerti": "pbiviz --install-cert",
     "package": "pbiviz package",
-    "start": "pbiviz start"
+    "start": "pbiviz start",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "author": "Jotham Apaloo",
   "license": "ISC",
   "dependencies": {
-    "powerbi-visuals-tools": "^1.1.0"
-  }
+    "powerbi-visuals-tools": "^1.1.0",
+    "snyk": "^1.53.0"
+  },
+  "snyk": true
 }
